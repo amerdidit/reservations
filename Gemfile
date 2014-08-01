@@ -10,17 +10,15 @@ gem 'rdoc'
 
 # rails 4 transition gems
 gem 'activerecord-session_store'
-gem 'rspec-its'
 
 #authentication
-#gem 'rubycas-client-rails'
-
 gem 'rubycas-client', :git => 'git://github.com/rubycas/rubycas-client.git'
 gem 'cancancan'
 
 #scheduling
 gem 'whenever'
 
+# superuser administration
 gem 'rails_admin'
 
 #ldap integration
@@ -47,11 +45,18 @@ gem 'simple_form'
 gem 'cocoon'
 gem 'redcarpet'
 
-
 # auditting / logging
 gem 'paper_trail'
 
+# graphics
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
+gem 'bootstrap-sass', '~> 2.0.3'
+gem 'font-awesome-rails'
+
 group :development, :test do
+  gem 'rspec-its'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
@@ -70,14 +75,6 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'database_cleaner'
 end
-
-# Gems used only for assets and not required
-# in production environments by default.
-gem 'sass-rails'
-gem 'coffee-rails'
-gem 'uglifier'
-gem 'bootstrap-sass', '~> 2.0.3'
-gem 'font-awesome-rails'
 
 group :development do
   gem 'thin'
