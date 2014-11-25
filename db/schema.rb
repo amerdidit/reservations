@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141026050048) do
+ActiveRecord::Schema.define(version: 20141125225625) do
 
   create_table "announcements", force: true do |t|
     t.text     "message"
@@ -85,6 +85,8 @@ ActiveRecord::Schema.define(version: 20141026050048) do
     t.datetime "deleted_at"
   end
 
+  add_index "checkin_procedures", ["equipment_model_id"], name: "index_checkin_procedures_on_equipment_model_id", using: :btree
+
   create_table "checkout_procedures", force: true do |t|
     t.integer  "equipment_model_id"
     t.string   "step"
@@ -92,6 +94,8 @@ ActiveRecord::Schema.define(version: 20141026050048) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
   end
+
+  add_index "checkout_procedures", ["equipment_model_id"], name: "index_checkout_procedures_on_equipment_model_id", using: :btree
 
   create_table "equipment_models", force: true do |t|
     t.string   "name"
@@ -119,6 +123,8 @@ ActiveRecord::Schema.define(version: 20141026050048) do
     t.integer  "max_checkout_length"
   end
 
+  add_index "equipment_models", ["category_id"], name: "index_equipment_models_on_category_id", using: :btree
+
   create_table "equipment_models_associated_equipment_models", id: false, force: true do |t|
     t.integer "equipment_model_id"
     t.integer "associated_equipment_model_id"
@@ -141,6 +147,8 @@ ActiveRecord::Schema.define(version: 20141026050048) do
     t.string   "deactivation_reason"
     t.text     "notes",               limit: 16777215,                 null: false
   end
+
+  add_index "equipment_objects", ["equipment_model_id"], name: "index_equipment_objects_on_equipment_model_id", using: :btree
 
   create_table "requirements", force: true do |t|
     t.integer  "equipment_model_id"
@@ -170,6 +178,12 @@ ActiveRecord::Schema.define(version: 20141026050048) do
     t.integer  "times_renewed"
     t.string   "approval_status",     default: "auto"
   end
+
+  add_index "reservations", ["checkin_handler_id"], name: "index_reservations_on_checkin_handler_id", using: :btree
+  add_index "reservations", ["checkout_handler_id"], name: "index_reservations_on_checkout_handler_id", using: :btree
+  add_index "reservations", ["equipment_model_id"], name: "index_reservations_on_equipment_model_id", using: :btree
+  add_index "reservations", ["equipment_object_id"], name: "index_reservations_on_equipment_object_id", using: :btree
+  add_index "reservations", ["reserver_id"], name: "index_reservations_on_reserver_id", using: :btree
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
